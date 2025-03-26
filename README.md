@@ -3,8 +3,8 @@
 
 #### *Problem Statement*  
 Companies dealing with cloud data face two major challenges:  
-⿡ *Wasted money on idle servers* – Paying for compute even when no data is processed.  
-⿢ *Crashes during traffic spikes* – Lack of auto-scaling leads to system failure.  
+1 *Wasted money on idle servers* – Paying for compute even when no data is processed.  
+2 *Crashes during traffic spikes* – Lack of auto-scaling leads to system failure.  
 
 #### *Solution: Serverless Data Processing Pipeline*  
 *Silent Scalper* eliminates idle costs and ensures scalability by leveraging AWS *serverless architecture*.  
