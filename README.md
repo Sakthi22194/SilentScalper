@@ -1,5 +1,5 @@
 # SilentScalper
-### *Silent Scalper - Project Summary* 🚀  
+### *Silent Scalper - Project Summary*   
 
 #### *Problem Statement*  
 Companies dealing with cloud data face two major challenges:  
@@ -47,14 +47,13 @@ A *Medical Imaging Company* needs to process *scan reports & patient records* se
 ---
 
 ### *Key Benefits*  
-✅ *Cost-Effective* – No idle server costs, pay only for usage.  
-✅ *Auto-Scaling* – Handles sudden traffic spikes without crashing.  
-✅ *Fault-Tolerant* – Corrupt files go to quarantine, preventing failures.  
-✅ *Secure & Monitored* – IAM roles, API keys, CloudWatch & SNS ensure security and visibility.  
+ *Cost-Effective* – No idle server costs, pay only for usage.  
+ *Auto-Scaling* – Handles sudden traffic spikes without crashing.  
+ *Fault-Tolerant* – Corrupt files go to quarantine, preventing failures.  
+ *Secure & Monitored* – IAM roles, API keys, CloudWatch & SNS ensure security and visibility.  
 
 ---
 
-### *Final Status: ✅ Completed!*  
+### *Final Status:  Completed!*  
 Silent Scalper is now a *fully functional, serverless data pipeline* that is cost-efficient, scalable, and secure.  
 
-🔥 *What’s next? Deployment? Enhancements? Let me know!* 🚀
