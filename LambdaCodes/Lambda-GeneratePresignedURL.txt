@@ -1,0 +1,14 @@
+import boto3
+import json
+
+s3 = boto3.client('s3')
+
+def lambda_handler(event, context):
+    bucket = 'my1-incoming-data-bucket'
+    key = json.loads(event['body'])['filename']
+    url = s3.generate_presigned_url(
+        'put_object',
+        Params={'Bucket': bucket, 'Key': key},
+        ExpiresIn=3600
+    )
+    return {'statusCode': 200, 'body': json.dumps({'url': url})}

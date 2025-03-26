@@ -1,0 +1,50 @@
+import boto3
+import csv
+from io import StringIO
+import logging
+
+logger = logging.getLogger()
+logger.setLevel(logging.INFO)
+
+s3 = boto3.client('s3')
+dynamodb = boto3.resource('dynamodb')
+
+table = dynamodb.Table('processed-data')
+
+quarantine_bucket = 'my1-quarantine-bucket'
+
+def lambda_handler(event, context):
+    try:
+        bucket = event['Records'][0]['s3']['bucket']['name']
+        key = event['Records'][0]['s3']['object']['key']
+        logger.info(f"Processing file: {key} from bucket: {bucket}")
+        
+        obj = s3.get_object(Bucket=bucket, Key=key)
+        
+        body = obj['Body'].read().decode('utf-8')
+        
+        csv_reader = csv.DictReader(StringIO(body))
+        
+        for row in csv_reader:
+            if 'value' not in row or row['value'] is None:
+                raise ValueError(f"Missing or invalid 'value' in row: {row}")
+            table.put_item(Item={'id': row['id'], 'data': row['value']})
+            logger.info(f"Inserted row with id: {row['id']}")
+        
+        return {'statusCode': 200, 'body': 'Success'}
+    
+    except Exception as e:
+        logger.error(f"Error processing file {key}: {str(e)}")
+        
+        try:
+            s3.copy_object(
+                Bucket=quarantine_bucket,  # Correct variable name
+                CopySource={'Bucket': bucket, 'Key': key},
+                Key=key
+            )
+            s3.delete_object(Bucket=bucket, Key=key)
+            logger.info(f"Moved file {key} to quarantine bucket")
+        except Exception as move_error:
+            logger.error(f"Failed to move file {key} to quarantine: {str(move_error)}")
+        
+        return {'statusCode': 500, 'body': str(e)}
